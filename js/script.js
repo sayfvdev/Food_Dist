@@ -69,7 +69,7 @@ prev.onclick = () => {
 // timer
 
 
-const deadline = "2024-10-24 19:50";
+const deadline = "2024-10-26 18:10";
 
 function getRemainingTime(endTime) {
     const t = Date.parse(endTime) - Date.parse(new Date()),
@@ -135,29 +135,35 @@ function startConfetti() {
 setTimer(deadline, ".timer");
 
 // calculating
-const calc = document.querySelectorAll('.calculating__subtitle')
-const calcBtn = document.querySelectorAll('.calculating__choose-item')
-const calculating_two = document.querySelectorAll('input')
-calculating(0)
-
-function calculating(c) {
-    calc.forEach(calcg => calcg.classList.add('hide', 'fade'));
-    calc[c].classList.remove('hide');
+const genderBtns = document.querySelectorAll('#gender .calculating__choose-item')
+const calculating_two = document.querySelectorAll('.calculating__choose_medium input')
+const activ = document.querySelectorAll('.calculating__choose_big .calculating__choose-item')
+const userData = {
+    gender: "woman",
 }
 
-calcBtn.forEach((btn, idx) => {
-    btn.onclick = () => {
-        calcBtn.forEach(btn => btn.classList.remove('calculating__choose-item_active'));
-        btn.classList.add('calculating__choose-item_active');
-        calculating(idx)
+activ.forEach(BtnActiv => {
+    BtnActiv.onclick = () => {
+        activ.forEach(it => it.classList.remove('calculating__choose-item_active'))
+        BtnActiv.classList.add('calculating__choose-item_active')
     }
-
-    calculating_two.forEach(calcl =>{
-        calcl.oninput = () =>{
-            console.log(calcl.id,calcl.value);
-            
-        }
-    })
-    
-    
 })
+
+genderBtns.forEach(btn => {
+    btn.onclick = () => {
+        genderBtns.forEach(el => el.classList.remove('calculating__choose-item_active'))
+        btn.classList.add('calculating__choose-item_active')
+        userData.gender = btn.getAttribute('data-g')
+    }
+})
+
+calculating_two.forEach(calcl => {
+    calcl.oninput = () => {
+        userData[calcl.id] = calcl.value
+    }
+})
+
+
+
+
+
